@@ -1,19 +1,22 @@
 <?php
 require_once __DIR__ .'/../models/ProductsModel.php';
+require_once(__DIR__ . '/../lib/data.php');
 
 class ProductsController
 {
     private ProductsModel $productsModel;
+    private Data $data;
 
     public function __construct()
     {
         $this->productsModel = new ProductsModel();
+        $this->data = new Data();
     }
 
     public function showProducts(): void
     {
-        $products = $this->productsModel->db->getAllData("s_shopshowcase_products", "id LIMIT 20");
-        $columns = $this->productsModel->getAllProducts();
+        $products = $this->productsModel->getAllProducts();
+        $columns = $this->productsModel->getColumns();
         $content = $this->render('products/index', [
             'products' => $products,
             'columns' => $columns,
@@ -26,7 +29,7 @@ class ProductsController
     {
         header('Content-Type: application/json');
 
-        $productId = $_POST['productId'] ?? null;
+        $productId = $this->data->post('productId');
         if (!$productId) {
             echo json_encode(['error' => 'Empty productId']);
             return;
@@ -48,12 +51,12 @@ class ProductsController
     {
         header('Content-Type: application/json');
 
-        $productId = $_POST['productId'] ?? null;
+        $productId = $this->data->post('productId');
         if (!$productId) {
             echo json_encode(['error' => 'Empty productId']);
             return;
         }
-        $mpn = $_POST['newMpn'] ?? null;
+        $mpn = $this->data->post('newMpn');
         if (!$mpn) {
             echo json_encode(['error' => 'Empty mpn']);
             return;
@@ -73,12 +76,13 @@ class ProductsController
     {
         header('Content-Type: application/json');
 
-        $id = $_POST['id'] ?? null;
-        if(!$id){
+        $id = $this->data->post('id');
+        if (!$id) {
             echo json_encode(['error' => 'Empty id']);
             return;
         }
-        $mpn = $_POST['newMpn'] ?? null;
+
+        $mpn = $this->data->post('newMpn');
         if (!$mpn) {
             echo json_encode(['error' => 'Empty mpn']);
             return;
@@ -93,12 +97,13 @@ class ProductsController
         }
     }
 
+
     function deleteProductMpn(): void
     {
         header('Content-Type: application/json');
 
-        $id = $_POST['id'] ?? null;
-        if(!$id){
+        $id = $this->data->post('id');
+        if (!$id) {
             echo json_encode(['error' => 'Empty id']);
             return;
         }

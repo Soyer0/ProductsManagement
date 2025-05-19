@@ -1,7 +1,7 @@
 <?php
 require_once 'Model.php';
 class ProductsModel extends Model {
-    public function getAllProducts(): bool|array|null
+    public function getColumns(): bool|array|null
     {
         $neededFields = ['id', 'mpn', 'price_base_uk', 'active', 'updated_at'];
         $columns =  $this->db->getTableFields('s_shopshowcase_products');
@@ -9,6 +9,11 @@ class ProductsModel extends Model {
             return in_array($field->Field, $neededFields);
         });
         return array_map(fn($field) => $field->Field, $filteredFields);
+    }
+
+    public function getAllProducts(): string|array|null
+    {
+        return  $this->db->getAllData("s_shopshowcase_products", "id LIMIT 20");
     }
 
     public function getProductById(int $id)

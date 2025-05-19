@@ -6,7 +6,7 @@
         <?php endforeach; ?>
     </tr>
     </thead>
-    <tbody id="userTableBody">
+    <tbody id="productTableBody">
     <?php foreach ($products as $product): ?>
         <tr class="clickable-row" data-product_id="<?= $product->id ?>">
             <?php foreach ($columns as $column): ?>

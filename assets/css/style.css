@@ -40,3 +40,29 @@
 #customWarningModal {
     z-index: 10510 !important;
 }
+
+#customErrorModal {
+    z-index: 10510 !important;
+}
+
+.btn-custom {
+    background-color: #e9f5ff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.btn-custom:hover {
+    background-color: #d0e9ff;
+    color: #0056b3;
+    border-color: #0056b3;
+}
+
+.readonly-style {
+    background-color: #e9ecef !important;
+    cursor: not-allowed;
+    box-shadow: none;
+}

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.clickable-row').on('click', function () {
+    $('#productTableBody').on('click', '.clickable-row', function () {
         const productId = $(this).data('product_id');
 
         $('#new-mpn-input').attr('data-product_id', productId);
@@ -20,7 +20,7 @@ $(document).ready(function () {
         })
     });
 
-    $(document).off('change', '.mpn-input').on('change', '.mpn-input', function () {
+    $('#productModal').off('change', '.mpn-input').on('change', '.mpn-input', function () {
         const $input = $(this);
         const newMpn = $input.val().trim();
         const id = $input.data('id');
