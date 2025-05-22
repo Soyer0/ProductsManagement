@@ -6,12 +6,12 @@ $(document).ready(function () {
         const userId = $row.data('user_id');
 
         ajaxActivateUser(userId, function () {
-            $row.removeClass('table-danger').addClass('table-success');
+            $row.removeClass('danger').addClass('success');
             const newBtn = `
-                <button class="btn btn-sm btn-danger deactivate-btn" title="Deactivate">
-                    <i class="fas fa-times text-white"></i>
-                </button>
-            `;
+            <button class="btn btn-xs btn-danger deactivate-btn" title="Deactivate">
+                <i class="fa fa-times" style="color: white;"></i>
+            </button>
+        `;
             $row.find('.activate-btn').replaceWith(newBtn);
         });
     });
@@ -23,15 +23,16 @@ $(document).ready(function () {
         const userId = $row.data('user_id');
 
         ajaxDeactivateUser(userId, function () {
-            $row.removeClass('table-success').addClass('table-danger');
+            $row.removeClass('success').addClass('danger');
             const newBtn = `
-                <button class="btn btn-sm btn-success activate-btn" title="Activate">
-                    <i class="fas fa-check text-white"></i>
-                </button>
-            `;
+            <button class="btn btn-xs btn-success activate-btn" title="Activate">
+                <i class="fa fa-check" style="color: white;"></i>
+            </button>
+        `;
             $row.find('.deactivate-btn').replaceWith(newBtn);
         });
     });
+
 
     $('#userTableBody').on('click', '.delete-btn', function (event) {
         event.stopPropagation();
@@ -70,26 +71,27 @@ $(document).ready(function () {
         }
 
         ajaxAddUser(name, title, canLogin, function (response){
-            bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+            $('#userModal').modal('hide');
+
             const user = response.user;
             const newRow = `
-                <tr class="clickable-row table-success" data-user_id="${user.id}">
-                    ${window.userColumns.map(column => {
+            <tr class="clickable-row success" data-user_id="${user.id}">
+                ${window.userColumns.map(column => {
                 const value = user[column];
                 const safeValue = (value !== null && value !== undefined && String(value).trim() !== '')
                     ? $('<div>').text(value).html()
                     : '-';
                 return `<td class="${column}">${safeValue}</td>`;
             }).join('')}
-                    <td>
-                        <button class="btn btn-sm btn-danger deactivate-btn" title="Deactivate">
-                            <i class="fas fa-times text-white"></i>
-                        </button>
-                        <button class="btn btn-sm btn-secondary delete-btn" title="Delete">
-                            <i class="fas fa-trash text-white"></i>
-                        </button>
-                    </td>
-                </tr>`;
+                <td>
+                    <button class="btn btn-xs btn-danger deactivate-btn" title="Deactivate">
+                        <i class="fa fa-times" style="color: white;"></i>
+                    </button>
+                    <button class="btn btn-xs btn-default delete-btn" title="Delete">
+                        <i class="fa fa-trash" style="color: white;"></i>
+                    </button>
+                </td>
+            </tr>`;
             $('#userTableBody').append(newRow);
         });
     });
@@ -163,7 +165,7 @@ $(document).ready(function () {
                 $cell.html(safeValue);
             });
 
-            bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+            $('#userModal').modal('hide');
         })
     });
 });

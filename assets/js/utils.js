@@ -1,12 +1,10 @@
 function showModal(modalId, message = '') {
-    const modalElement = document.getElementById(modalId);
-    if (!modalElement) return;
+    const $modal = $('#' + modalId);
+    if (!$modal.length) return;
     if (message) {
-        const body = modalElement.querySelector('.modal-body');
-        if (body) body.innerHTML = message;
+        $modal.find('.modal-body').html(message);
     }
-    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
-    modal.show();
+    $modal.modal('show');
 }
 
 function switchToEditMode() {
@@ -24,14 +22,17 @@ function switchToAddMode() {
 }
 
 
+
 function populateForm(products) {
     const $container = $('#dynamicFieldsContainer');
     $container.empty();
 
     products.forEach(product => {
         const inputHtml = `
-            <div class="mb-3 border-bottom pb-2">
-                <label class="form-label fw-bold">MPN (ID: ${product.product_id ?? ''})</label>
+            <div class="mpn-wrapper" style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                <label class="control-label" style="font-weight: bold;">
+                    MPN (ID: ${product.product_id ?? ''})
+                </label>
                 <input 
                     type="text" 
                     class="form-control mpn-input" 

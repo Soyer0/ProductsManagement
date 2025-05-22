@@ -26,8 +26,10 @@ function ajaxAddProductMpn(productId, newMpn, onSuccess){
         success: function (response) {
             const $container = $('#dynamicFieldsContainer');
             const inputHtml = `
-            <div class="mb-3 border-bottom pb-2">
-                <label class="form-label fw-bold">MPN (ID: ${productId})</label>
+            <div class="mpn-wrapper" style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 8px;">
+                <label class="control-label" style="font-weight: bold;">
+                    MPN (ID: ${productId})
+                </label>
                 <input 
                     type="text" 
                     class="form-control mpn-input" 
@@ -67,7 +69,7 @@ function ajaxDeleteProductMpn(id){
         data: { id: id },
         dataType: 'json',
         success: function (response) {
-            $(`input[data-id="${id}"]`).closest('.mb-3').remove();
+            $(`input[data-id="${id}"]`).closest('.mpn-wrapper').remove();
         },
         error: function (xhr, status, error) {
             console.error('Error:', error);

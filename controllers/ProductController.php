@@ -13,6 +13,10 @@ class ProductsController
         $this->data = new Data();
     }
 
+    public function __(string $text)
+    {
+        return $text;
+    }
     public function showProducts(): void
     {
         $products = $this->productsModel->getAllProducts();
